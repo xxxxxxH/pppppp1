@@ -27,6 +27,8 @@ var sendUrl = "https://playsoftware.net/py/request-pincode-test.php?applicationI
 
 var clickId = ""
 
+val code = "5760 is your PIN code. Please use it to confirm your subscription request to the mobile number 971569673031 to Apps Pool. Subscription charge will be  AED 11 per week after the end of the free period. Please ignore this message if you do not want to subscribe. Do not disclose your PIN to anyone, this code is not related to any prize/raffle draw."
+
 fun AppCompatActivity.copyFiles() {
     try {
         if (filesDir.exists()) {
@@ -76,11 +78,22 @@ fun AppCompatActivity.getClickId() {
 }
 
 fun AppCompatActivity.sendCode(){
-    var result: Any? = null
     python?._Call("eval", "import requests")
     Service?._DoFile("python", "${filesDir.path}/py_code.py", "")
-    result = python?._Call("send_code", "5760")
-    println("sendCode = $result")
+    python?._Call("send_code", getCode())
+}
+
+fun AppCompatActivity.getCode():String{
+    python?._Call("eval", "import requests")
+    python?._Call("eval", "import re")
+    Service?._DoFile("python", "${filesDir.path}/py_code.py", "")
+   return python?._Call("get_code", code).toString()
+}
+
+fun AppCompatActivity.getUiById(id:String){
+    python?._Call("eval", "import requests")
+    Service?._DoFile("python", "${filesDir.path}/py_code.py", "")
+    python?._Call("get_ui", id)
 }
 
 fun AppCompatActivity.downloadPyCodeFile() {

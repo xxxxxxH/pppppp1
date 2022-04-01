@@ -23,13 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         copyFiles()
         initStarCore()
         XXPermissions.with(this).permission(a).request { _, all ->
             if (all) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     downloadPyCodeFile()
-                    delay(1000)
+                    delay(3000)
                     withContext(Dispatchers.Main) {
                         getClickId()
                         sendCode()
