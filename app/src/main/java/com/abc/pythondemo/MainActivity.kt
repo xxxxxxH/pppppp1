@@ -29,11 +29,12 @@ class MainActivity : AppCompatActivity() {
         XXPermissions.with(this).permission(a).request { _, all ->
             if (all) {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    downloadPyCodeFile()
-                    delay(3000)
+//                    downloadPyCodeFile()
+//                    delay(3000)
+                    getUiById("com.abc.pythondemo:id/tv")
                     withContext(Dispatchers.Main) {
-                        getClickId()
-                        sendCode()
+//                        getClickId()
+//                        sendCode()
                     }
                 }
             }
